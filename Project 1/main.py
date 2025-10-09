@@ -3,6 +3,10 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import random
 import time
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -52,7 +56,7 @@ def search_bing():
         time.sleep(random.uniform(2, 5))
 
 def search_yahoo():
-    print("Searching Yahoo")
+    print("\nSearching Yahoo")
     for keyword in KEYWORDS:
         print(f"{keyword} is being searched")
 
@@ -84,8 +88,37 @@ def search_yahoo():
         # Random delay to act human-like
         time.sleep(random.uniform(2, 5))
 
+def search_google():
+    print("\nSearching Google")
+    API_KEY = os.getenv("google_KEY")
+    CX = "23b320d001037432a"    
+
+    for keyword in KEYWORDS:
+        print(f"{keyword} is being searched")        
+
+        url = f"https://www.googleapis.com/customsearch/v1?q={keyword}&key={API_KEY}&cx={CX}" 
+        
+        response = requests.get(url)
+        data = response.json()    
+
+        urls = []
+        for item in data["items"]:
+            urls.append(item["link"])      
+
+        # Store data
+        for link in urls:
+            website_urls.append({
+                "URL": link,
+                "Search Engine": "Google",
+                "Keyword": keyword,
+                "Date": pd.Timestamp.today().strftime("%Y-%m-%d")
+            })        
+
+        print(f"✅ Found {len(urls)} links for '{keyword}'")    
+
 search_bing()
 search_yahoo()
+search_google()
 
 #Export all data
 df = pd.DataFrame(website_urls)
