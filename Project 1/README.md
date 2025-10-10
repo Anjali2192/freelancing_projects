@@ -19,6 +19,7 @@ To build a Python script that automatically:
 ### 🧠 Keywords Used
 The script fetches URLs for the following keywords:
  KEYWORDS = ["blogging tips", "marketing strategies", "content creation"]
+
 Each keyword is searched on Google, Bing, and Yahoo — three times per search engine.
 
 ---
