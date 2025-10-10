@@ -33,23 +33,18 @@ Each keyword is searched on Google, Bing, and Yahoo — three times per search e
 
 ### 🧾 Summary
 This project represents a real-world freelance-style task that involves:
-
-*Multi-engine web scraping
-*Keyword-based URL collection
-*Organized CSV output
-*Automation potential
-*It serves as a foundational practice project for larger scraping and automation workflows.
+ Multi-engine web scraping 
+ Keyword-based URL collection 
+ Organized CSV output 
+ Automation potential 
+ It serves as a foundational practice project for larger scraping and automation workflows.
 
 ---
 
 ### 🚀 Future Enhancements
-
--Add pagination support to fetch more results per search engine.
-
--Integrate proxy and user-agent rotation to handle rate limits.
-
--Automate weekly runs using Task Scheduler or cron jobs.
-
--Add logging and error handling for failed searches.
+ Add pagination support to fetch more results per search engine. 
+ Integrate proxy and user-agent rotation to handle rate limits. 
+ Automate weekly runs using Task Scheduler or cron jobs. 
+ Add logging and error handling for failed searches. 
 
 ---
