@@ -1,14 +1,22 @@
 import requests
 import json
-from bs4 import BeautifulSoup
 
-url = "https://www.bigbasket.com/cl/fruits-vegetables/?nc=nb&page=1"
+url = "https://www.bigbasket.com/listing-svc/v2/products?type=mem.sb&slug=all&page=1"
 
 headers = {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "Accept": "application/json, text/javascript, */*; q=0.01",
+    "Referer": "https://www.bigbasket.com/cl/fruits-vegetables/"
 }
 
-r = requests.get(url, headers=headers)
-soup = BeautifulSoup(r.text, "lxml")
+response = requests.get(url, headers=headers)
 
-# Find image urls
+if response.status_code==200:
+    print("getting data")
+    data = response.json()
+    with open ("keys.json", "w") as f:
+        json.dump(data, f, indent=4) 
+    print(F"Saved data in keys.json")
+
+else:
+    print(f"Error: {response.status_code} - {response.text}")
