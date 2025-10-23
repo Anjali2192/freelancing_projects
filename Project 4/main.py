@@ -7,7 +7,9 @@ load_dotenv()
 
 API_KEY = os.getenv("weatherAPI_KEY")
 
-url = f"http://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q=Paris"
+city = "Paris"
+
+url = f"http://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={city}"
 
 response = requests.get(url)
 
@@ -25,7 +27,8 @@ else:
 #with open("keys.json", "w") as f:
 #    json.dump(data, f, indent=4)
 
-df = pd.DataFrame([{"Temperature": temp,
+df = pd.DataFrame([{"City": city,
+                   "Temperature": temp,
                    "Humidity": humidity,
                    "Wind (in mph)": wind,
                    "Condition": condition}])
