@@ -38,12 +38,14 @@ for city in KEYWORD:
                    "Temperature": temp,
                    "Humidity": humidity,
                    "Wind (in mph)": wind,
-                   "Condition": condition})
+                   "Condition": condition,
+                   "Date": pd.Timestamp.today().strftime("%Y-%m-%d"),
+                   "Time": pd.Timestamp.now().strftime("%H:%M:%S")})
 
     else:
         print(f"Error: {response.status_code} - {response.text}")
 
 df = pd.DataFrame(details)
+df.to_csv("details.csv", index=False)
 
-print(df)
-
+print("All fetched data saved to details.csv")
