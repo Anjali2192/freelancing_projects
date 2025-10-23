@@ -1,6 +1,6 @@
 City,Temperature,Humidity,Wind (in mph),Condition,Date,Time
-Paris,[12.1],[82],[17.4],['Moderate rain'],2025-10-23,19:53:23
-Mumbai,[32.0],[67],[12.8],['Patchy light rain with thunder'],2025-10-23,19:53:23
-Delhi,[7.6],[91],[15.0],['Sunny'],2025-10-23,19:53:23
-Bangalore,[23.3],[89],[13.0],['Partly cloudy'],2025-10-23,19:53:24
-New York,[11.7],[52],[13.2],['Overcast'],2025-10-23,19:53:24
+Paris,13.5,63,17.4,Light rain shower,2025-10-23,20:11:55
+Mumbai,32.1,67,12.8,Patchy light rain with thunder,2025-10-23,20:11:56
+Delhi,7.6,91,15.0,Sunny,2025-10-23,20:11:57
+Bangalore,23.1,89,13.0,Partly cloudy,2025-10-23,20:11:58
+New York,11.7,52,13.2,Overcast,2025-10-23,20:11:59
