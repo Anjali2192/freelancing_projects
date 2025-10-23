@@ -7,31 +7,43 @@ load_dotenv()
 
 API_KEY = os.getenv("weatherAPI_KEY")
 
-city = "Paris"
+details = []
 
-url = f"http://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={city}"
+KEYWORD = ["Paris", "Mumbai", "Delhi", "Bangalore", "New York"]
 
-response = requests.get(url)
+for city in KEYWORD:
+    temp = []
+    humidity = []
+    wind = []
+    condition = []
 
-if response.status_code == 200:
-    print("Fetching data !")
-    data = response.json()
-    temp = data["current"]["temp_c"]
-    humidity = data["current"]["humidity"]
-    wind = data["current"]["wind_mph"]
-    condition = data["current"]["condition"]["text"]
+    url = f"http://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={city}"    
 
-else:
-    print(f"Error: {response.status_code} - {response.text}")
+    response = requests.get(url)    
 
-#with open("keys.json", "w") as f:
-#    json.dump(data, f, indent=4)
+    if response.status_code == 200:
+        print(f"Fetching {city}")
+        data = response.json()
+        temperature = data["current"]["temp_c"]
+        hmdty = data["current"]["humidity"]
+        wnd = data["current"]["wind_mph"]
+        cndtn = data["current"]["condition"]["text"]    
 
-df = pd.DataFrame([{"City": city,
+        temp.append(temperature)
+        humidity.append(hmdty)
+        wind.append(wnd)
+        condition.append(cndtn)
+
+        details.append({"City": city,
                    "Temperature": temp,
                    "Humidity": humidity,
                    "Wind (in mph)": wind,
-                   "Condition": condition}])
+                   "Condition": condition})
+
+    else:
+        print(f"Error: {response.status_code} - {response.text}")
+
+df = pd.DataFrame(details)
 
 print(df)
 
