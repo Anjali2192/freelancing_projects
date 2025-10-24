@@ -1,0 +1,9 @@
+2025-10-24 19:22:21,374 - INFO - Script started
+2025-10-24 19:22:22,282 - INFO - API call successful for Paris
+2025-10-24 19:22:22,833 - INFO - API call successful for Mumbai
+2025-10-24 19:22:23,652 - INFO - API call successful for Delhi
+2025-10-24 19:22:24,466 - INFO - API call successful for Bangalore
+2025-10-24 19:22:25,248 - INFO - API call successful for New York
+2025-10-24 19:22:25,249 - INFO - CSV saved successfully: details24-10-25.csv
+2025-10-24 19:22:30,204 - INFO - Email sent successfully
+2025-10-24 19:22:30,204 - INFO - Script execution completed

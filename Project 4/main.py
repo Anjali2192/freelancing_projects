@@ -5,14 +5,28 @@ from datetime import datetime
 import pandas as pd
 import smtplib
 from email.message import EmailMessage
+import logging
 
 load_dotenv()
+
+today = datetime.now().strftime("%d-%m-%y")
+log_filename = f"logs_{today}.log"
+
+logging.basicConfig(
+    filename=log_filename,
+    level=logging.INFO,  # options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
+logging.getLogger().addHandler(logging.StreamHandler())
 
 API_KEY = os.getenv("weatherAPI_KEY")
 
 details = []
 
 KEYWORD = ["Paris", "Mumbai", "Delhi", "Bangalore", "New York"]
+
+logging.info("Script started")
 
 for city in KEYWORD:
     url = f"http://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={city}"    
@@ -34,17 +48,17 @@ for city in KEYWORD:
                    "Condition": condition,
                    "Date": pd.Timestamp.today().strftime("%Y-%m-%d"),
                    "Time": pd.Timestamp.now().strftime("%H:%M:%S")})
+        
+        logging.info(f"API call successful for {city}")
 
     else:
         print(f"Error: {response.status_code} - {response.text}")
-
-today = datetime.now().strftime("%d-%m-%y")
 
 filename = f"details{today}.csv"
 df = pd.DataFrame(details)
 df.to_csv(filename, index=False)
 
-print(f"All fetched data saved to details{today}.csv")
+logging.info(f"CSV saved successfully: {filename}")
 
 SENDER_EMAIL = os.getenv("sender_email")
 SENDER_PASSWORD = os.getenv("sender_password")
@@ -64,4 +78,6 @@ with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
     smtp.login(SENDER_EMAIL, SENDER_PASSWORD)
     smtp.send_message(msg)
 
-print("Email sent successfully!")
+logging.info("Email sent successfully")
+
+logging.info("Script execution completed")
