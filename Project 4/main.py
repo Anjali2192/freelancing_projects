@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 import pandas as pd
 
 load_dotenv()
@@ -35,7 +36,9 @@ for city in KEYWORD:
     else:
         print(f"Error: {response.status_code} - {response.text}")
 
-df = pd.DataFrame(details)
-df.to_csv("details.csv", index=False)
+today = datetime.now().strftime("%d-%m-%y")
 
-print("All fetched data saved to details.csv")
+df = pd.DataFrame(details)
+df.to_csv(f"details{today}.csv", index=False)
+
+print(f"All fetched data saved to details{today}.csv")
