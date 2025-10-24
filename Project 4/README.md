@@ -8,15 +8,15 @@ It’s also equipped with logging and can be scheduled to run automatically usin
 
 ### 🚀 Features
 
-Fetches weather data from a public API (e.g., Weatherapi).
+-Fetches weather data from a public API (e.g., Weatherapi).
 
-Stores the fetched data in a date-based CSV file (e.g., details24-10-25.csv).
+-Stores the fetched data in a date-based CSV file (e.g., details24-10-25.csv).
 
-Automatically emails the CSV file every day.
+-Automatically emails the CSV file every day.
 
-Logs all activities and errors for debugging or tracking.
+-Logs all activities and errors for debugging or tracking.
 
-Can be scheduled to run daily using Task Scheduler.
+-Can be scheduled to run daily using Task Scheduler.
 
 ---
 
@@ -26,19 +26,19 @@ Can be scheduled to run daily using Task Scheduler.
 2️⃣ Get Your Weather API Key
 3️⃣ Configure Email
 4️⃣ Schedule the Script
+
     🪟 For Windows:
 
     Open Task Scheduler    
-
     Create a new task:    
 
-        Trigger: Daily at 5 PM    
+    -Trigger: Daily at 5 PM    
 
-        Action: Start a program → python    
+    -Action: Start a program → python    
 
-        Arguments: Full path to your script    
+    -Arguments: Full path to your script    
 
-        Check “Run whether user is logged on or not”
+    -Check “Run whether user is logged on or not”
 
 ---
 
@@ -56,12 +56,12 @@ This helps in tracking or debugging your automation.
 
 ### ✅ Future Enhancements
 
-Auto-delete log/CSV files older than 7 days
+-Auto-delete log/CSV files older than 7 days
 
-Support multiple cities
+-Support multiple cities
 
-Include graphs (temperature trend, humidity variation, etc.)
+-Include graphs (temperature trend, humidity variation, etc.)
 
-Send daily summary via WhatsApp or Telegram
+-Send daily summary via WhatsApp or Telegram
 
 ---
