@@ -1,0 +1,6 @@
+City,Temperature,Humidity,Wind (in mph),Condition,Date,Time
+Paris,13.0,58,13.6,Partly cloudy,2025-10-24,18:51:10
+Mumbai,32.0,67,2.2,Mist,2025-10-24,18:51:11
+Delhi,5.2,89,12.5,Sunny,2025-10-24,18:51:11
+Bangalore,23.3,83,6.9,Partly cloudy,2025-10-24,18:51:12
+New York,8.3,68,9.8,Sunny,2025-10-24,18:51:13

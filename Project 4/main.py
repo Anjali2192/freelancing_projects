@@ -3,6 +3,8 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 import pandas as pd
+import smtplib
+from email.message import EmailMessage
 
 load_dotenv()
 
@@ -38,7 +40,28 @@ for city in KEYWORD:
 
 today = datetime.now().strftime("%d-%m-%y")
 
+filename = f"details{today}.csv"
 df = pd.DataFrame(details)
-df.to_csv(f"details{today}.csv", index=False)
+df.to_csv(filename, index=False)
 
 print(f"All fetched data saved to details{today}.csv")
+
+SENDER_EMAIL = os.getenv("sender_email")
+SENDER_PASSWORD = os.getenv("sender_password")
+RECEIVER_EMAIL = os.getenv("receiver_email")
+
+msg = EmailMessage()
+msg["Subject"] = f"Weather Report : {today}"
+msg["From"] = SENDER_EMAIL
+msg["To"] = RECEIVER_EMAIL
+msg.set_content("Hi,\n\nHere is your daily weather report.\n\nRegards,\nYour Automation Bot")
+
+with open(filename, "rb") as f:
+    file_data = f.read()
+    msg.add_attachment(file_data, maintype="application", subtype="octet-stream", filename=filename)
+
+with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+    smtp.login(SENDER_EMAIL, SENDER_PASSWORD)
+    smtp.send_message(msg)
+
+print("Email sent successfully!")
