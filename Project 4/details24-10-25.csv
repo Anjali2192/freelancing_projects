@@ -1,6 +1,6 @@
 City,Temperature,Humidity,Wind (in mph),Condition,Date,Time
-Paris,13.2,54,13.6,Light rain,2025-10-24,19:22:22
-Mumbai,32.4,71,2.2,Patchy light rain with thunder,2025-10-24,19:22:22
-Delhi,5.2,89,13.9,Sunny,2025-10-24,19:22:23
-Bangalore,23.0,83,6.9,Partly cloudy,2025-10-24,19:22:24
-New York,9.4,61,10.3,Sunny,2025-10-24,19:22:25
+Paris,13.3,58,13.4,Light rain,2025-10-24,21:47:14
+Mumbai,27.0,89,4.7,Patchy light rain with thunder,2025-10-24,21:47:15
+Delhi,8.5,72,15.0,Partly Cloudy,2025-10-24,21:47:16
+Bangalore,22.1,78,6.7,Partly cloudy,2025-10-24,21:47:17
+New York,12.2,50,9.8,Sunny,2025-10-24,21:47:18
