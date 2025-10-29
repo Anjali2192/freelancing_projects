@@ -1,5 +1,8 @@
 from playwright.sync_api import sync_playwright
 from playwright_stealth import stealth_sync
+import pandas as pd
+
+job_data = []
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=False)
@@ -43,7 +46,17 @@ with sync_playwright() as p:
         job_key = inner_tag.get_attribute('data-jk') if inner_tag else None
         job_url = f"https://in.indeed.com/viewjob?jk={job_key}&from=shareddesktop_copy" if job_key else 'N/A'
 
-        print(f"Title: {title} | Company: {company} | Location: {location} | Salary: {salary} | URL: {job_url}")
+        job_data.append({"Title": title,
+                         "Company": company,
+                         "Location": location,
+                         "Salary": salary,
+                         "URL": job_url
+                         })
 
     context.close()
     browser.close()
+
+df = pd.DataFrame(job_data)
+df.to_csv("job_data0.csv", index=False)
+
+print(f"CSV saved successfully")
