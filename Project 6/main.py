@@ -1,0 +1,69 @@
+from playwright.sync_api import sync_playwright
+from playwright_stealth import stealth_sync
+import pandas as pd
+
+n = 1
+datacentres = []
+location = ("australia", "new-zealand")
+
+def get_data():
+    cards = page.query_selector_all('//a[@class="flex flex-col gap-2 rounded border border-gray-100 p-2 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-600/40"]')
+
+    for card in cards:
+        #name
+        name_el = card.query_selector('//div[@class="text font-medium hover:text-purple"]')
+        name = name_el.text_content().strip() if name_el else "N/A"
+
+        #address
+        address_el = card.query_selector_all('//div[@class="text-xs text-gray-500"]')
+        address = address_el[1].text_content().strip()
+
+        #image
+        image_el = card.query_selector('//img[@src]')
+        image = image_el.get_attribute('src') if image_el else "N/A"
+
+        datacentres.append({
+            "NAME": name,
+            "ADDRESS": address,
+            "IMAGE": image,
+            "POWER OUTPUT": "N/A"
+        })
+        
+# Launching Browser
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    context = browser.new_context(viewport=
+                                  {"width":1280, "height":800})
+    page = context.new_page()
+    stealth_sync(page)
+
+    page.set_extra_http_headers({
+        "Accept-Language": "en=US,en:q=0.9",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+    })
+
+    for country in location:
+        url = f"https://www.datacenters.com/locations/{country}"
+        page.goto(url, timeout=60000)
+
+        while True:
+            print(f"Getting data of page {n} from {country}")
+            n += 1
+            get_data()
+            next_button = page.query_selector_all('//button[@class="Control__control__ijHLR Pagination__pageItem__NsQSw Pagination__symbol__KHv6r"]')
+            if country == "australia" and n > 6:
+                break
+            elif country == "new-zealand" and n > 8:
+                break
+            elif len(next_button) > 1:
+                next_button[1].click()
+            else:
+                next_button[0].click()
+            
+
+    context.close()
+    browser.close()
+
+df = pd.DataFrame(datacentres)
+df.to_csv("datacentres.csv", index=False)
+print(f"All data saved to datacentres.csv")
