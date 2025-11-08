@@ -2,7 +2,6 @@ from playwright.sync_api import sync_playwright
 from playwright_stealth import stealth_sync
 import pandas as pd
 
-n = 1
 datacentres = []
 location = ("australia", "new-zealand")
 
@@ -43,6 +42,7 @@ with sync_playwright() as p:
     })
 
     for country in location:
+        n = 1
         url = f"https://www.datacenters.com/locations/{country}"
         page.goto(url, timeout=60000)
 
@@ -50,20 +50,24 @@ with sync_playwright() as p:
             print(f"Getting data of page {n} from {country}")
             n += 1
             get_data()
-            next_button = page.query_selector_all('//button[@class="Control__control__ijHLR Pagination__pageItem__NsQSw Pagination__symbol__KHv6r"]')
-            if country == "australia" and n > 6:
+            next_button = page.query_selector('//button[@class="Control__control__ijHLR Pagination__pageItem__NsQSw Pagination__symbol__KHv6r"]')
+            # Ask user what to do next
+            user_input = input("➡️  Click 'Next' in the browser manually, then press Enter to continue (or type 'stop' to end): ")
+
+            if user_input.strip().lower() == "stop":
+                print(f"Stopping scrape for {country}.")
                 break
-            elif country == "new-zealand" and n > 8:
+
+            # Wait for the new page data to load after your manual click
+            try:
+                page.wait_for_selector('//a[@class="flex flex-col gap-2 rounded border border-gray-100 p-2 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-600/40"]', timeout=10000)
+            except:
+                print("⚠️  Timed out waiting for new page, assuming no more pages.")
                 break
-            elif len(next_button) > 1:
-                next_button[1].click()
-            else:
-                next_button[0].click()
-            
 
     context.close()
     browser.close()
 
-df = pd.DataFrame(datacentres)
+df = pd.DataFrame(datacentres).drop_duplicates()
 df.to_csv("datacentres.csv", index=False)
 print(f"All data saved to datacentres.csv")
